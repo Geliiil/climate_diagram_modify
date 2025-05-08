@@ -131,7 +131,7 @@ diagwl_new <- function(dat, cols=1:6, format='%Y-%m-%d', yeari=NA, yearf=NA,
   else mtext(paste(stname," (","Elevation: ",alt,"m)",sep=""),line=2,adj=0)
   mtext(per,line=1,adj=0)
   mtext(bquote("MAT: "~.(round(mean(tm), 1)) * degree * C ),line=2,adj=1)
-  mtext(bquote("MAP: "~.(round(sum(p)),1) ~ "mm"),line=1,adj=1)
+  mtext(bquote("MAP: "~.(format(round(sum(p), 0), big.mark = ",")) ~ "mm"),line=1,adj=1)
   x <- 0:13-0.5
   p2 <- c(p[12],p[1:12],p[1])
   if(p3line) { #additional precipitation line at 1:3 scale

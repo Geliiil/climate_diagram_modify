@@ -3,7 +3,7 @@ library(dplyr)
 library(readr)
 library(stringr)
 ############################
-setwd("the path of  生態氣候圖 folder ")
+setwd("the path of 生態氣候圖 folder")
 source("diagwl_new.R")
 
 # Read and process all CSV files
