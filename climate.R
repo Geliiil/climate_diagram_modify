@@ -3,6 +3,7 @@ library(dplyr)
 library(readr)
 library(stringr)
 ############################
+setwd("the path of  生態氣候圖 folder ")
 source("diagwl_new.R")
 
 # Read and process all CSV files
@@ -34,11 +35,11 @@ dataHandling <-function(station_name, filename, elevation, per){
   # Calculate monthly statistics
   for (i in seq_along(month_list)) {
     m <- month_list[i]
-    month_data <- filter(all_data, `觀測時間(month)` == m)
-    result[1, i] <- round(mean(as.numeric(month_data$`降水量(mm)`), na.rm = TRUE), 2)
-    result[2, i] <- round(mean(as.numeric(month_data$`最高氣溫(℃)`), na.rm = TRUE), 2)
-    result[3, i] <- round(mean(as.numeric(month_data$`最低氣溫(℃)`), na.rm = TRUE), 2)
-    result[4, i] <- round(mean(as.numeric(month_data$`氣溫(℃)`), na.rm = TRUE), 2)
+    month_data <- all_data[all_data[["觀測時間(month)"]] == m, ]
+    result[1, i] <- round(mean(as.numeric(month_data[["降水量(mm)"]]), na.rm = TRUE), 2)
+    result[2, i] <- round(mean(as.numeric(month_data[["最高氣溫(℃)"]]), na.rm = TRUE), 2)
+    result[3, i] <- round(mean(as.numeric(month_data[["最低氣溫(℃)"]]), na.rm = TRUE), 2)
+    result[4, i] <- round(mean(as.numeric(month_data[["氣溫(℃)"]]), na.rm = TRUE), 2)
   }
   
   clim_df <- as.matrix(as.data.frame(result,row.names = 1))
@@ -50,7 +51,7 @@ dataHandling <-function(station_name, filename, elevation, per){
 ############################
 
 exportClimateDiagram <- function(climdata, station_name, filename, elevation, per) {
-  setwd("your path")
+  setwd("the path of 生態氣候圖 folder")
   CairoFonts(regular = "Noto Sans T Chinese:style=Light", bold = "Noto Sans T Chinese:style=Regular")
   par(family="BiauKaiTC-Regular")
   # Set output as PNG image
@@ -61,4 +62,4 @@ exportClimateDiagram <- function(climdata, station_name, filename, elevation, pe
 }
 
 # Execute for station "station name"
-dataHandling('station name', "filename.png", 'station elevation', 'time range')
+dataHandling('station name', "filename.png", 'elevation', 'time range')
